@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Library Login</title>
+<style>
+body{
+    font-family: Arial;
+    background: linear-gradient(to right, #11998e, #38ef7d);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+.box{
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    width:300px;
+    text-align:center;
+}
+input{
+    width:90%;
+    padding:8px;
+    margin:8px;
+}
+button{
+    background:#11998e;
+    color:white;
+    padding:10px;
+    border:none;
+    width:100%;
+    cursor:pointer;
+}
+button:hover{
+    background:#0f7a6f;
+}
+</style>
+</head>
+<body>
+
+<div class="box">
+<h2>Login</h2>
+
+<input type="text" id="username" placeholder="Enter Username">
+<input type="password" id="password" placeholder="Enter Password">
+
+<button onclick="login()">Login</button>
+
+<br><br>
+<a href="register.html">Create Account</a>
+</div>
+
+<script>
+function login(){
+    let username = document.getElementById("username").value;
+    let password = document.getElementById("password").value;
+
+    let data = localStorage.getItem(username);
+
+    if(data==null){
+        alert("User not found");
+        return;
+    }
+
+    let user = JSON.parse(data);
+
+    if(user.password===password){
+        localStorage.setItem("currentUser", JSON.stringify(user));
+        window.location="dashboard.html";
+    }else{
+        alert("Wrong Password");
+    }
+}
+</script>
+
+</body>
+</html>

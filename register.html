@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Library Registration</title>
+<style>
+body{
+    font-family: Arial;
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+.box{
+    background:white;
+    padding:30px;
+    border-radius:10px;
+    width:300px;
+    text-align:center;
+}
+input, select{
+    width:90%;
+    padding:8px;
+    margin:8px;
+}
+button{
+    background:#2a5298;
+    color:white;
+    padding:10px;
+    border:none;
+    width:100%;
+    cursor:pointer;
+}
+button:hover{
+    background:#1e3c72;
+}
+a{
+    text-decoration:none;
+}
+</style>
+</head>
+<body>
+
+<div class="box">
+<h2>Register</h2>
+
+<input type="text" id="username" placeholder="Enter Username">
+<input type="password" id="password" placeholder="Enter Password">
+
+<select id="role">
+<option value="student">Student</option>
+<option value="admin">Admin</option>
+</select>
+
+<button onclick="register()">Register</button>
+<br><br>
+<a href="login.html">Already have account? Login</a>
+</div>
+
+<script>
+function register(){
+    let user = {
+        username: document.getElementById("username").value,
+        password: document.getElementById("password").value,
+        role: document.getElementById("role").value
+    };
+
+    if(user.username==="" || user.password===""){
+        alert("Fill all fields");
+        return;
+    }
+
+    localStorage.setItem(user.username, JSON.stringify(user));
+    alert("Registration Successful");
+    window.location="login.html";
+}
+</script>
+
+</body>
+</html>

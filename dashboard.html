@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Library Dashboard</title>
+<style>
+body{
+    font-family:Arial;
+    background:#f4f4f4;
+    text-align:center;
+}
+h2{
+    background:#2a5298;
+    color:white;
+    padding:15px;
+}
+button{
+    padding:15px 30px;
+    margin:15px;
+    font-size:16px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    background:#38ef7d;
+}
+button:hover{
+    background:#11998e;
+    color:white;
+}
+#adminBtn{
+    background:red;
+    color:white;
+}
+</style>
+</head>
+<body>
+
+<h2 id="welcome"></h2>
+
+<button onclick="openBranch('CSE')">Computer Engineering</button>
+<button onclick="openBranch('ME')">Mechanical Engineering</button>
+<button onclick="openBranch('CE')">Civil Engineering</button>
+<button onclick="openBranch('EE')">Electrical Engineering</button>
+<button onclick="openBranch('ECE')">Electronics Engineering</button>
+
+<br><br>
+<button id="adminBtn" onclick="adminPanel()">Admin Panel</button>
+
+<div id="books"></div>
+
+<script>
+let user = JSON.parse(localStorage.getItem("currentUser"));
+
+if(user==null){
+    window.location="login.html";
+}
+
+document.getElementById("welcome").innerText =
+"Welcome " + user.username + " (" + user.role + ")";
+
+if(user.role!=="admin"){
+    document.getElementById("adminBtn").style.display="none";
+}
+
+function openBranch(branch){
+    let bookList = JSON.parse(localStorage.getItem(branch)) || [];
+    let output = "<h3>"+branch+" Books</h3>";
+
+    bookList.forEach(book=>{
+        output += "<p>"+book+"</p>";
+    });
+
+    document.getElementById("books").innerHTML = output;
+}
+
+function adminPanel(){
+    window.location="admin.html";
+}
+</script>
+
+</body>
+</html>

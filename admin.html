@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Admin Panel</title>
+<style>
+body{
+    font-family:Arial;
+    background:#ffe6e6;
+    text-align:center;
+}
+input, select{
+    padding:10px;
+    margin:10px;
+}
+button{
+    padding:10px 20px;
+    background:red;
+    color:white;
+    border:none;
+    cursor:pointer;
+}
+button:hover{
+    background:darkred;
+}
+</style>
+</head>
+<body>
+
+<h2>Admin Panel - Upload Book</h2>
+
+<select id="branch">
+<option value="CSE">Computer Engineering</option>
+<option value="ME">Mechanical Engineering</option>
+<option value="CE">Civil Engineering</option>
+<option value="EE">Electrical Engineering</option>
+<option value="ECE">Electronics Engineering</option>
+</select>
+
+<input type="text" id="bookName" placeholder="Enter Book Name">
+
+<button onclick="addBook()">Add Book</button>
+<br><br>
+<button onclick="goBack()">Back to Dashboard</button>
+
+<script>
+let user = JSON.parse(localStorage.getItem("currentUser"));
+
+if(user.role!=="admin"){
+    alert("Only Admin Allowed");
+    window.location="dashboard.html";
+}
+
+function addBook(){
+    let branch = document.getElementById("branch").value;
+    let book = document.getElementById("bookName").value;
+
+    if(book===""){
+        alert("Enter Book Name");
+        return;
+    }
+
+    let books = JSON.parse(localStorage.getItem(branch)) || [];
+    books.push(book);
+    localStorage.setItem(branch, JSON.stringify(books));
+
+    alert("Book Added Successfully");
+}
+
+function goBack(){
+    window.location="dashboard.html";
+}
+</script>
+
+</body>
+</html>
